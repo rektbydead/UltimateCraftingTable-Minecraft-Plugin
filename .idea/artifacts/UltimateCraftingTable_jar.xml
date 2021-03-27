@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="UltimateCraftingTable:jar">
+    <output-path>$USER_HOME$/Desktop/Servidor 1.16.2/plugins</output-path>
+    <root id="archive" name="UltimateCraftingTable.jar">
+      <element id="module-output" name="UltimateCraftingTable" />
+      <element id="file-copy" path="$PROJECT_DIR$/jars/spigot-1.16.5.jar" />
+    </root>
+  </artifact>
+</component>

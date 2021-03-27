@@ -1,4 +1,4 @@
-package pt.RektByDead.UCT.Events;
+package pt.RektByDead.UCT.CraftingTables.Events;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;

@@ -1,24 +1,14 @@
-package pt.RektByDead.UCT.Events;
+package pt.RektByDead.UCT.CraftingTables.Events;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
-import org.bukkit.event.inventory.*;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
-import pt.RektByDead.UCT.CraftingTables.Actions.InventoryActions;
 import pt.RektByDead.UCT.CraftingTables.Model.CraftingTable;
 import pt.RektByDead.UCT.Main;
-
-import java.util.List;
-import java.util.Map;
 
 
 public class CraftingTableDestroy implements Listener {

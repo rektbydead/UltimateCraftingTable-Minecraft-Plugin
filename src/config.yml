@@ -1,0 +1,26 @@
+
+#De quantos em quantos segundos, salvar os itens que estão nas crafting tables
+#Serve para evitar a perda de itens caso ocorra um crash
+#Ao diminuir muito, ha chance de perda de TPS
+#Default 120
+saveItemsEveryXSeconds: 120
+
+#Várias pessoas podem usar a crafting table ao mesmo tempo?
+#Desabilitar esta opção pode prevenir algum bug de duplicação caso exista
+#Default: true
+usableByMultiplePlayers: true
+
+#Tempo da Crafting Table sem ser utilizada para ser eliminada/não carregada
+#Recomanda-se usar um valor elevado. A utilização de valores baixos pode causar dups/bugs
+#Default: 24 * 7 = 168, uma semana
+hoursToDeleteCraftingTable: 168
+
+#De quanto em quanto tempo verificar se pode eliminar a crafting table
+#Recomendo desabilitar se reiniciar o seu servidor todos os dias, já que ao iniciar a verificação já é feita
+#Para desabilitar escreva 0
+hoursToCheckDeleteCraftingTable: 12
+
+#Mensagens predefinidas
+#Escrava "-NAO-MANDAR-MENSAGEM-" para não mandar mensagem (sem as "")
+mensagens:
+  MessageIfCrafingTableAlreadyOpen: "§cA Mesa de Trabalho que tentou abrir já está a ser utilizada."

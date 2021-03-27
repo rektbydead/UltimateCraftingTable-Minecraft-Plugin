@@ -10,18 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CraftingTable {
-    //private static int idCounter = 0;
-    //private int id;
 
     private final static int InventorySize = 9;
     private Location loc;
     private ItemStack[] slots;
     private List<Player> PlayersUsingTable;
-
+    private boolean isOpen;
     private long lastTimeOpen;
 
     public CraftingTable(Location loc) {
-        //this.id = idCounter++;
+        isOpen = true;
         this.loc = loc.clone();
         slots = new ItemStack[InventorySize];
         PlayersUsingTable = new ArrayList<>();
@@ -31,7 +29,9 @@ public class CraftingTable {
         lastTimeOpen = System.currentTimeMillis();
     }
 
-    //public int getID() { return id; }
+    public boolean getIsOpen() { return isOpen; }
+
+    public void setIsOpen(boolean arg) { isOpen = arg; }
 
     public long getLastTimeOpen() {
         return lastTimeOpen;

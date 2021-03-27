@@ -1,4 +1,4 @@
-package pt.RektByDead.UCT.Events;
+package pt.RektByDead.UCT.CraftingTables.Events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -19,7 +19,21 @@ public class CraftingTableOpenClose implements Listener {
             return;
 
         CraftingTable ct = Main.manager.getCrafingTable(inv.getLocation());
+        if (ct == null)
+            return;
+
+        if (!ct.getIsOpen()) {
+            if (!Main.config.getUsableByMultiplePlayers()) {
+                e.setCancelled(true);
+                String msg = Main.config.getMessage("MessageIfCrafingTableAlreadyOpen");
+                if (!msg.equals("-NAO-MANDAR-MENSAGEM-"))
+                    e.getPlayer().sendMessage(Main.config.getMessage("MessageIfCrafingTableAlreadyOpen"));
+                return;
+            }
+        }
+
         ct.addPlayer((Player) e.getPlayer());
+        ct.setIsOpen(false);
 
         Bukkit.getScheduler().runTaskLater(Main.instance, () -> {
             for (int i = 0; i < 9; i++)
@@ -40,6 +54,7 @@ public class CraftingTableOpenClose implements Listener {
         if (ct == null)
             return;
 
+        ct.setIsOpen(true);
         ct.removePlayer((Player) e.getPlayer());
     }
 }

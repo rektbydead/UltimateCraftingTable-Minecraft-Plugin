@@ -1,6 +1,5 @@
-package pt.RektByDead.UCT.Events;
+package pt.RektByDead.UCT.CraftingTables.Events;
 
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

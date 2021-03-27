@@ -61,46 +61,37 @@ public class Main extends JavaPlugin {
                 return;
 
             for (String path : section.getKeys(false)) {
-                //System.out.println("\n\n\n"+section.getCurrentPath() + "." + path);
-
                 ConfigurationSection subSection = loading.getConfigurationSection(section.getCurrentPath() + "." + path);
                 if (subSection == null)
                     return;
-                //System.out.println("Chegou 1");
 
                 String longtime = (String) subSection.get("lastTimeSeen");
                 if (longtime == null)
                     continue;
 
-                //System.out.println("Chegou 2");
                 long lastTime = Long.parseLong(longtime);
                 long now = System.currentTimeMillis();
-                //System.out.println(now + " < " + (lastTime + (1000 * 60 * 60 * 24 * 7)));
                 if (now > lastTime + (1000 * 60 * 60 * 24 * 7))  //has been a week
                     continue;
-                //System.out.println("Chegou 3");
 
                 Location loc = (Location) subSection.get("location");
                 if (loc == null)
                     continue;
-                //System.out.println("Chegou 4");
+
                 if (loc.getBlock().getType() != Material.CRAFTING_TABLE)
                     continue;
-                //System.out.println("Chegou 5");
+
                 CraftingTable ct = manager.createCraftingTable(loc);
 
                 List<ItemStack> matrix = (List<ItemStack>) subSection.get("items");
-                //for (ItemStack a : matrix)
-                //    System.out.println(a + "");
 
                 if (matrix == null)
                     return;
-                //System.out.println("Chegou 6");
+
                 for (int i = 0; i < matrix.size(); i++)
                     ct.setItemAt(i, matrix.get(i));
 
                 ct.setLastTimeOpen(lastTime);
-                //System.out.println("Chegou 7");
             }
         } catch (IOException e) {
             e.printStackTrace();

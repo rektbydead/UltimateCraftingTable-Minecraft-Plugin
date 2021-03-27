@@ -10,11 +10,14 @@ import pt.RektByDead.UCT.Main;
 public class InventoryActions {
 
     public static void actionCollect_To_Cursor(InventoryClickEvent e) {
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
         Inventory inv = e.getView().getTopInventory();
         ItemStack itemToCollect = e.getCursor();
         ItemStack item;
 
-        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
         int amount = itemToCollect.getAmount();
         for (int i = 0; i < 9; i++) {
             if (amount >= itemToCollect.getMaxStackSize())
@@ -43,18 +46,25 @@ public class InventoryActions {
     }
 
     public static void actionHotBar_Swap(InventoryClickEvent e) {
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
         Inventory inv = e.getWhoClicked().getInventory();
         ItemStack itemInv = e.getInventory().getItem(e.getSlot());
         ItemStack itemHotBar = inv.getItem(e.getHotbarButton());
 
         inv.setItem(e.getHotbarButton(), itemInv);
 
-        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
         ct.setItemAt(e.getSlot() - 1, itemHotBar);
         ct.changePlayersInventory();
     }
 
     public static void actionDropOneSlot(InventoryClickEvent e) {
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
         Inventory inv = e.getInventory();
         ItemStack item = inv.getItem(e.getSlot());
 
@@ -63,24 +73,29 @@ public class InventoryActions {
         inv.getLocation().getWorld().dropItemNaturally(inv.getLocation(), dropItem);
 
         item.setAmount(item.getAmount() - 1);
-
-        CraftingTable ct = Main.manager.getCrafingTable(inv.getLocation());
         ct.setItemAt(e.getSlot() - 1,/*item.getAmount() == 0 ? null :*/ item);
         ct.changePlayersInventory();
     }
 
     public static void actionDropAllSlot(InventoryClickEvent e) {
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
         Inventory inv = e.getInventory();
         ItemStack item = inv.getItem(e.getSlot());
 
         inv.getLocation().getWorld().dropItemNaturally(inv.getLocation(), item);
 
-        CraftingTable ct = Main.manager.getCrafingTable(inv.getLocation());
         ct.setItemAt(e.getSlot() - 1, null);
         ct.changePlayersInventory();
     }
 
     public static void actionPlaceOne(InventoryClickEvent e) {
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
         ItemStack cursor = e.getCursor();
         ItemStack itemInventory = cursor.clone();
 
@@ -94,12 +109,15 @@ public class InventoryActions {
             itemInventory.setAmount(1);
         else itemInventory.setAmount(replaced.getAmount() + 1);
 
-        CraftingTable ct = Main.manager.getCrafingTable(inv.getLocation());
         ct.setItemAt(e.getSlot() - 1, itemInventory);
         ct.changePlayersInventory();
     }
 
     public static void actionPlaceSome(InventoryClickEvent e) {
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
         ItemStack cursor = e.getCursor();//.clone();
         ItemStack replaced = e.getInventory().getItem(e.getSlot());
 
@@ -108,15 +126,16 @@ public class InventoryActions {
         e.setCursor(cursor);
         replaced.setAmount(replaced.getMaxStackSize());
 
-        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
         ct.setItemAt(e.getSlot() - 1, replaced);
         ct.changePlayersInventory();
     }
 
     public static void actionPlaceAll(InventoryClickEvent e) {
-        ItemStack cursor = e.getCursor();
-
         CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
+        ItemStack cursor = e.getCursor();
         e.setCursor(null);
 
         ItemStack invItem = e.getInventory().getItem(e.getSlot());
@@ -129,6 +148,10 @@ public class InventoryActions {
     }
 
     public static void actionPickUpHalf(InventoryClickEvent e) {
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
         Inventory inv = e.getClickedInventory();
         ItemStack itemInventory = inv.getItem(e.getSlot());
 
@@ -145,17 +168,19 @@ public class InventoryActions {
 
         e.setCursor(itemInventoryClone);
 
-        CraftingTable ct = Main.manager.getCrafingTable(inv.getLocation());
         ct.setItemAt(e.getSlot() - 1, itemInventory);
         ct.changePlayersInventory();
     }
 
     public static void actionPickUpAll(InventoryClickEvent e) {
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
         Inventory inv = e.getClickedInventory();
         ItemStack itemInventory = inv.getItem(e.getSlot());
         e.setCursor(itemInventory);
 
-        CraftingTable ct = Main.manager.getCrafingTable(inv.getLocation());
         ct.setItemAt(e.getSlot() - 1, null);
         ct.changePlayersInventory();
     }
@@ -176,7 +201,10 @@ public class InventoryActions {
         if (itemHotBar.getAmount() + getItem.getAmount() > getItem.getMaxStackSize())
             return;
 
-        CraftingTable ct = Main.manager.getCrafingTable(inv.getLocation());
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
         for (int i = 0; i < 9; i++) {
             ItemStack item = inv.getItem(i + 1);
             if (item == null)
@@ -210,7 +238,9 @@ public class InventoryActions {
         if (getItem.getMaxStackSize() < quantidade)
             return;
 
-        CraftingTable ct = Main.manager.getCrafingTable(inv.getLocation());
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
 
         for (int i = 0; i < 9; i++) {
             ItemStack item = inv.getItem(i + 1);
@@ -257,7 +287,10 @@ public class InventoryActions {
         if (itemsCraftable == 0)
             return;
 
-        CraftingTable ct = Main.manager.getCrafingTable(inv.getLocation());
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
         for (int i = 0; i < 9; i++) { //goes through all inventory and removes the number of items
             ItemStack item = inv.getItem(i + 1);
             if (item == null)
@@ -302,7 +335,10 @@ public class InventoryActions {
             return;
 
 
-        CraftingTable ct = Main.manager.getCrafingTable(inv.getLocation());
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
         ct.setItemAt(e.getSlot() - 1, null);
         ct.changePlayersInventory();
 
@@ -310,12 +346,15 @@ public class InventoryActions {
     }
 
     public static void actionSwap_With_Cursor(InventoryClickEvent e) {
+        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
+        if (ct == null)
+            return;
+
         ItemStack cursor = e.getCursor();
         ItemStack itemInv = e.getInventory().getItem(e.getSlot());
 
         e.setCursor(itemInv);
 
-        CraftingTable ct = Main.manager.getCrafingTable(e.getInventory().getLocation());
         ct.setItemAt(e.getSlot() - 1, cursor);
         ct.changePlayersInventory();
     }

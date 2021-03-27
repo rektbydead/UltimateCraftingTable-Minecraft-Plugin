@@ -1,7 +1,6 @@
 package pt.RektByDead.UCT.Events;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -20,11 +19,14 @@ public class InventoryRelatedEvents implements Listener {
     @EventHandler
     public void onDragItemInventory(InventoryDragEvent e) {
         Inventory inv = e.getInventory();
-        Bukkit.broadcastMessage(e.getType() + "");
+        //Bukkit.broadcastMessage(e.getType() + "");
         if (inv.getType() != InventoryType.WORKBENCH) //this is here so it doesnt have to do all those ifs bellow if it isnt a workbench
             return;
 
         CraftingTable ct = Main.manager.getCrafingTable(inv.getLocation());
+        if (ct == null)
+            return;
+
         Map<Integer, ItemStack> newItems = e.getNewItems();
         ItemStack cursor = e.getOldCursor();
         for (Map.Entry<Integer, ItemStack> itemEntry : newItems.entrySet()) {

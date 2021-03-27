@@ -1,6 +1,7 @@
 package pt.RektByDead.UCT;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -33,6 +34,12 @@ public class Main extends JavaPlugin {
             saveDefaultConfig();
         loadCraftingTables();
         loadConfig();
+
+        asyncItemsSaving();
+    }
+
+    private void asyncItemsSaving() {
+        Bukkit.getScheduler().runTaskTimerAsynchronously(instance, this::saveCraftingTables, 300 * 2 * 20L, 300 * 2 * 20L);
     }
 
     private void enableAllEvents(){
@@ -99,7 +106,7 @@ public class Main extends JavaPlugin {
     }
 
     private void loadConfig() {
-
+        //to do | create
     }
 
     private void saveCraftingTables() {
@@ -111,12 +118,13 @@ public class Main extends JavaPlugin {
 
             YamlConfiguration loading = YamlConfiguration.loadConfiguration(file);
 
-            HashMap<Location, CraftingTable> craftingTables = manager.getAllCrafingTables();
+            final HashMap<Location, CraftingTable> craftingTables = manager.getAllCrafingTables();
             int i = 0;
-            for (Map.Entry<Location, CraftingTable> ct : craftingTables.entrySet()) {
-                loading.set("craftingTables." + i + ".location", ct.getKey());
-                loading.set("craftingTables." + i + ".items", ct.getValue().getAllItems());
-                loading.set("craftingTables." + i + ".lastTimeSeen", String.valueOf(ct.getValue().getLastTimeOpen()));
+            for (Map.Entry<Location, CraftingTable> entry : craftingTables.entrySet()) {
+                CraftingTable cp = entry.getValue();
+                loading.set("craftingTables." +i + ".location", cp.getLocation());
+                loading.set("craftingTables." + i + ".items",cp.getAllItems());
+                loading.set("craftingTables." + i + ".lastTimeSeen", String.valueOf(cp.getLastTimeOpen()));
                 i++;
             }
 
